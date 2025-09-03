@@ -4,6 +4,7 @@ use App\Http\Controllers\admin\AuthController;
 use App\Http\Controllers\admin\BrandsController;
 use App\Http\Controllers\admin\CategoriesController;
 use App\Http\Controllers\admin\ProductController;
+use App\Http\Controllers\admin\ProductImagesController;
 use App\Http\Controllers\admin\SizeController;
 use App\Http\Controllers\admin\TempImageController;
 use Illuminate\Http\Request;
@@ -30,6 +31,7 @@ Route::middleware('auth:sanctum')->group(function(){
     /*PRODUCTS API */
     Route::get('admin/products',[ProductController::class,'index']);
     Route::post('admin/products',[ProductController::class,'store']);
+    Route::get('admin/products/count',[ProductController::class, 'countProducts']);
     Route::get('admin/products/{id}',[ProductController::class,'show']);
     Route::put('admin/products/{id}',[ProductController::class,'update']);
     Route::delete('admin/products/{id}',[ProductController::class,'destroy']);
@@ -37,7 +39,10 @@ Route::middleware('auth:sanctum')->group(function(){
      /*Sizes API */
      Route::get('admin/size',[SizeController::class,'show']);
 
-     /*TEMP IMAGES API */
-     Route::post('admin/temp-image',[TempImageController::class,'store']);
-
+     /* IMAGES API */
+    Route::delete('admin/products/{id}/images/{imageId}',[ProductImagesController::class,'destroy']);
+    Route::post(
+    '/admin/products/{product}/images/{image}/make-primary',
+    [ProductImagesController::class, 'makePrimary']
+);
 });

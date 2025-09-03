@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use GuzzleHttp\Psr7\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
@@ -267,6 +268,25 @@ $startIdx = $product->images()->count(); // or just ignore startIdx entirely
         return response()->json([
             'status'  => 200,
             'message' => 'Product deleted successfully'
+        ], 200);
+    }
+
+    public function countProducts()
+    {
+        $count = DB::table('products')->count();
+
+        if ($count === 0) {
+            return response()->json([
+                'status'  => 404,
+                'message' => 'No products found',
+                'count'   => 0,
+            ], 404);
+        }
+
+        return response()->json([
+            'status'  => 200,
+            'message' => 'Product count retrieved successfully',
+            'count'   => $count,
         ], 200);
     }
 }
