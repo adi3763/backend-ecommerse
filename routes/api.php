@@ -44,5 +44,10 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post(
     '/admin/products/{product}/images/{image}/make-primary',
     [ProductImagesController::class, 'makePrimary']
-);
+    );
+    /* NEW ARRIVALS */
+    Route::get('admin/new-arrivals', [ProductController::class, 'newArrivals']);
+
+    /*Featured Products */
+    Route::get('admin/featured-products', [ProductController::class, 'featuredProducts']);
 });

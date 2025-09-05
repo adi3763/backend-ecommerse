@@ -289,4 +289,36 @@ $startIdx = $product->images()->count(); // or just ignore startIdx entirely
             'count'   => $count,
         ], 200);
     }
+
+    public function newArrivals(){
+        $latestPosts = Product::with(['images', 'primaryImage'])->latest('id')->take(10)->get();
+        if(!$latestPosts->isNotEmpty()){
+            return response()->json([
+                'status'  => 404,
+                'message' => 'No products found',
+            ], 404);
+        }
+
+        return response()->json([
+            'status'  => 200,
+            'message' => 'New arrivals retrieved successfully',
+            'data'    => $latestPosts,
+        ], 200);
+    }
+
+    public function featuredProducts(){
+        $featuredProducts = Product::with(['images', 'primaryImage'])->where('is_featured', 1)->get();
+        if(!$featuredProducts->isNotEmpty()){
+            return response()->json([
+                'status'  => 404,
+                'message' => 'No featured products found',
+            ], 404);
+        }
+
+        return response()->json([
+            'status'  => 200,
+            'message' => 'Featured products retrieved successfully',
+            'data'    => $featuredProducts,
+        ], 200);
+    }
 }
