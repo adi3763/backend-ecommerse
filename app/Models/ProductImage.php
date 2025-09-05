@@ -14,7 +14,7 @@ class ProductImage extends Model
         'is_primary', // optional helper
     ];
 
-       protected $appends  = ['image_url'];   // <-- expose computed URL
+    protected $appends  = ['image_url'];   // <-- expose computed URL
     protected $hidden   = ['image'];       // optional: hide raw path
 
     public function getImageUrlAttribute()
