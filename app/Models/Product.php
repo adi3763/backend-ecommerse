@@ -42,4 +42,20 @@ public function primaryImage()
         return optional($this->primaryImage)->image_url
             ?? optional($this->images()->orderBy('id')->first())->image_url;
     }
+
+    public function category(){
+        return $this->belongsTo(Category::class);
+    }
+
+    public function brand(){
+        return $this->belongsTo(Brand::class);
+    }
+
+    public function cartItems(){
+        return $this->hasMany(cart_items::class);
+    }
+
+    public function cart(){
+        return $this->belongsToMany(Cart::class, 'cart_items', 'product_id', 'cart_id')->withPivot('quantity', 'price');
+    }
 }

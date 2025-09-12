@@ -7,6 +7,7 @@ use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\admin\ProductImagesController;
 use App\Http\Controllers\admin\SizeController;
 use App\Http\Controllers\admin\TempImageController;
+use App\Http\Controllers\CartController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -50,4 +51,10 @@ Route::middleware('auth:sanctum')->group(function(){
 
     /*Featured Products */
     Route::get('admin/featured-products', [ProductController::class, 'featuredProducts']);
+
+    /* CART API */
+    Route::post('/cart/add', [CartController::class, 'addToCart']);
+    Route::get('/cart', [CartController::class, 'viewCart']);
+    Route::delete('/cart/item/{id}', [CartController::class, 'removeItem']);
 });
+// 8949715270

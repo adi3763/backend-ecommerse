@@ -27,7 +27,7 @@ class AuthController extends Controller
         if(Auth::attempt($validated->validated())){
             $user = User::find(Auth::id());
 
-            if($user->role == 'admin'){
+            if($user->role == 'admin' || $user->role == 'user'){
                 $token = $user->createToken('admin-token')->plainTextToken;
 
                 return response()->json([
